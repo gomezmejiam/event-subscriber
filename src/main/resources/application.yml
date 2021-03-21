@@ -1,0 +1,47 @@
+spring:
+  cloud:
+    gcp:
+      project-id: ${gcp-project-id}
+      credentials:
+        encoded-key: ${gcp-base64-credential-json-file}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/friendstore?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=America/Bogota
+    username: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming: 
+        implicit-strategy: co.com.ingeniods.config.CustomPresistenceNamingStrategy
+        physical-strategy: co.com.ingeniods.config.CustomPresistenceNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format-sql: true
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: production
+
+events:
+  integration:
+    dlq: events-dlq
+    events: events-core-sub
+    notify: events-store
+    executors: 10
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+      springframework:
+        jdbc:
+          core:
+            JdbcTemplate: DEBUG
+            StatementCreatorUtils: TRACE
+    root: INFO
