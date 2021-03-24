@@ -1,5 +1,6 @@
 package co.com.ingeniods.humantalent.application.service;
 
+import java.util.List;
 import java.util.Objects;
 
 import co.com.ingeniods.humantalent.application.service.arguments.EmployeeServiceArgs;
@@ -23,6 +24,10 @@ public abstract class EmployeeService {
 	
 	public boolean existsByPersonId(PersonId personId) {
 		return arguments.getExistsByPersonId().execute(personId);
+	}
+	
+	public Iterable<Employee> findByPersonIds(List<PersonId> personIds) {
+		return arguments.getFindByPersonIds().execute(personIds);
 	}
 	
 
