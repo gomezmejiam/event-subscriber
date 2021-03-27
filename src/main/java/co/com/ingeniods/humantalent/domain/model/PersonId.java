@@ -12,5 +12,9 @@ import lombok.Setter;
 public class PersonId {
   private DocumentType type;
   private String number;
+  
+  public String toString() {
+	  return type.getValue()+number;
+  }
 
 }

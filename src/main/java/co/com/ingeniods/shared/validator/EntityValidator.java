@@ -6,7 +6,10 @@ import co.com.ingeniods.shared.validator.domain.ValidationError;
 
 public interface EntityValidator <T> {
   
-  boolean validate(T entity);
+	public default boolean validate(T entity) {
+		return validateError(entity).isEmpty();
+	}
+
   List<ValidationError> validateError(T entity);
 
 }

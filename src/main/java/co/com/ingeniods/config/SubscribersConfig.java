@@ -66,7 +66,8 @@ public class SubscribersConfig {
 	}
 
 	private Consumer<Event<String>> defaultConsumer() {
-		Consumer<Event<String>> consumer = event -> {
+		return event -> {
+			@SuppressWarnings("rawtypes")
 			final Optional<EventProcessor> eventProcessor = eventProcessors.stream()
 					.filter(x -> x.canProcessType(event.getType())).findFirst();
 
@@ -80,7 +81,6 @@ public class SubscribersConfig {
 					event.getId());
 			executor.execute(() -> processor.accept(event));
 		};
-		return consumer;
 	}
 
 }

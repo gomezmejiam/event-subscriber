@@ -10,7 +10,6 @@ public class JooqGeneratorStrategy extends DefaultGeneratorStrategy {
 		 	if(mode != Mode.POJO) {
 		 		return super.getJavaClassName(definition,mode);
 		 	}
-		 	System.out.println("algo::::>>>>>>> "+ definition.getName() +">>>>>>>"+mode);
 		 	return super.getJavaClassName(definition,mode) + "Pojo";
 	    }
 }

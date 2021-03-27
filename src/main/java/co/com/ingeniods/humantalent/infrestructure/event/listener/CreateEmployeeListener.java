@@ -7,8 +7,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.com.ingeniods.humantalent.application.service.EmployeeService;
+import co.com.ingeniods.humantalent.application.service.EmployeeValidator;
 import co.com.ingeniods.humantalent.domain.model.Employee;
-import co.com.ingeniods.humantalent.domain.validator.EmployeeValidator;
 import co.com.ingeniods.humantalent.infrestructure.event.dto.CreateEmployee;
 import co.com.ingeniods.shared.event.EventProcessor;
 import co.com.ingeniods.shared.event.domain.Event;

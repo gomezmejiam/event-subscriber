@@ -1,7 +1,8 @@
 package co.com.ingeniods.shared.validator.domain;
 
 public enum ValidationErrorCode {
-  VALUE_CANT_BE_ZERO("VBE-001","VALUE_CANT_BE_ZERO");
+  VALUE_CANT_BE_ZERO("VBE-001","VALUE_CANT_BE_ZERO"), 
+  ENTITY_ALREADY_REGISTRED("VBE-002","ENTITY_ALREADY_REGISTRED");
   
   private String code;
   private String type;

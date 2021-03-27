@@ -12,10 +12,10 @@ public class CustomPresistenceNamingStrategy extends ImplicitNamingStrategyJpaCo
 		implements PhysicalNamingStrategy {
 
 	private static final long serialVersionUID = -4824306240368398184L;
-	private final String NAME_REGEX = "([a-z])([A-Z])";
-	private final String NAME_REPLACEMENT = "$1_$2";
-	private final int FK_MAX_TABLE_NAME = 22;
-
+	private static final int FK_MAX_TABLE_NAME = 22;
+	private static final String NAME_REGEX = "([a-z])([A-Z])";
+	private static final String NAME_REPLACEMENT = "$1_$2";
+	
 	@Override
 	public Identifier toPhysicalCatalogName(final Identifier identifier, final JdbcEnvironment jdbcEnv) {
 		return convertToSnakeCase(identifier);
@@ -68,7 +68,7 @@ public class CustomPresistenceNamingStrategy extends ImplicitNamingStrategyJpaCo
 	private String formatName(final Identifier identifier) {
 		String name = identifier.getText().replaceAll(NAME_REGEX, NAME_REPLACEMENT).toUpperCase();
 		if (name.contains("_DTO")) {
-			name = name.replaceAll("_DTO", "");
+			name = name.replace("_DTO", "");
 		}
 		return name;
 	}

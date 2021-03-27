@@ -20,6 +20,7 @@ public interface EmployeeAssembler extends DtoAssembler<Employee, EmployeeDTO> {
 	@Mapping(source = "person.name.middleName", target = "middleName")
 	@Mapping(source = "person.name.surname", target = "surname")
 	@Mapping(source = "person.name.secondSurname", target = "secondSurname")
+	@Mapping(ignore = true, target = "editionUserDate")
 	EmployeeDTO toDto(Employee entity);
 
 	@Mapping(target = "person.id.type", source = "idType")
