@@ -6,7 +6,7 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter(autoApply = true)
-public class GenericEnumConverter<E extends Enum<E>, ID> implements AttributeConverter<E, String> {
+public class GenericEnumConverter<E extends Enum<E>> implements AttributeConverter<E, String> {
 
 	private final Class<E> valueClass;
 	

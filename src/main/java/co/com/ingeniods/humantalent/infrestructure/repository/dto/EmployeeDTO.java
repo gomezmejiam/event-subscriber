@@ -23,5 +23,4 @@ public class EmployeeDTO extends BaseDto {
 	private String middleName;
 	private String surname;
 	private String secondSurname;
-	//private EmployeeMetadataDTO additional;
 }

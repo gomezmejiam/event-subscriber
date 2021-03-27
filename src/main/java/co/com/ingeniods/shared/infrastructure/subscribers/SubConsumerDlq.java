@@ -21,30 +21,30 @@ public abstract class SubConsumerDlq implements SubConsumer {
 
 	private final PubSubTemplate pubSubTemplate;
 
-	private final String SUBSCRIPTION;
+	private final String subscription;
 
-	private final String DLQ;
+	private final String dlq;
 
-	private final String ACCEPTED;
+	private final String accepted;
 
 	private Consumer<Event<String>> proccess;
 
-	public SubConsumerDlq(PubSubTemplate pubSubTemplate, String subscription, String dlq, String accepted) {
+	protected SubConsumerDlq(PubSubTemplate pubSubTemplate, String subscription, String dlq, String accepted) {
 		this.pubSubTemplate = pubSubTemplate;
-		SUBSCRIPTION = subscription;
-		DLQ = dlq;
-		ACCEPTED = accepted;
+		this.subscription = subscription;
+		this.dlq = dlq;
+		this.accepted = accepted;
 	}
 
 	@Override
 	public String subscription() {
-		return SUBSCRIPTION;
+		return subscription;
 	}
 
 	@Override
 	public void subscribe(Consumer<Event<String>> consumer) {
 		this.proccess = consumer;
-		pubSubTemplate.subscribe(this.subscription(), pubsubMessage -> consume(pubsubMessage));
+		pubSubTemplate.subscribe(this.subscription(), this::consume);
 		log.info("Suscribiendo {} a {}", subscription());
 
 	}
@@ -56,7 +56,7 @@ public abstract class SubConsumerDlq implements SubConsumer {
 		}.getType());
 		try {
 			this.proccess.accept(event);
-			this.pubSubTemplate.publish(ACCEPTED, GSON.toJson(event));
+			this.pubSubTemplate.publish(accepted, GSON.toJson(event));
 			pubsubMessage.ack();
 		} catch (TechnicalException et) {
 			log.error("Error técnico (mensaje reintentable): {}", et.getMessage());
@@ -69,8 +69,8 @@ public abstract class SubConsumerDlq implements SubConsumer {
 	private void killMessage(Event<String> event, BusinessException en,
 			BasicAcknowledgeablePubsubMessage acknowledgeable) {
 		log.error("Error de negocio: {}", en.getMessage());
-		log.debug("Evento error a DLQ: {}", event);
-		this.pubSubTemplate.publish(DLQ, createEvent(event, en));
+		log.debug("Evento error a dlq: {}", event);
+		this.pubSubTemplate.publish(dlq, createEvent(event, en));
 		acknowledgeable.ack();
 	}
 

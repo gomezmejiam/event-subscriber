@@ -18,7 +18,7 @@ import co.com.ingeniods.shared.modules.domain.DomainEnum;
 public class CustomJacksonModule extends Module {
 
 	@SuppressWarnings("rawtypes")
-	private final List<Class> ENUMS = Arrays.asList(DocumentType.class);
+	private static final List<Class> ENUMS = Arrays.asList(DocumentType.class);
 
 	@Override
 	public String getModuleName() {
@@ -51,15 +51,13 @@ public class CustomJacksonModule extends Module {
 	}
 
 	private <T extends Enum<?>> ValueObjectSerializer<T> enumSerializer(Class<T> enumClass) {
-		return new ValueObjectSerializer<>(enumClass, value -> value.name());
+		return new ValueObjectSerializer<>(enumClass, Enum::name);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private <T extends DomainEnum> ValueObjectDeserializer<T> enumDeserializer(Class<T> enumClass) {
-		return new ValueObjectDeserializer<T>(enumClass, v -> {
-			return Arrays.asList(enumClass.getEnumConstants()).stream().filter(e -> e.isEnum(v)).findFirst()
-					.orElse(null);
-		});
+		return new ValueObjectDeserializer<>(enumClass, v -> Arrays.asList(enumClass.getEnumConstants()).stream()
+				.filter(e -> e.isEnum(v)).findFirst().orElse(null));
 	}
 
 }

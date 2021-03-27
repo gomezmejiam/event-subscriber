@@ -1,7 +1,7 @@
 package co.com.ingeniods.shared.modules.domain;
 
-public interface DomainEnum<ID> {
+public interface DomainEnum<K> {
 	
-	public boolean isEnum(ID value);
+	public boolean isEnum(K value);
 
 }

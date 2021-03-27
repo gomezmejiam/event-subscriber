@@ -10,7 +10,8 @@ import co.com.ingeniods.humantalent.domain.model.PersonId;
 public abstract class EmployeeService {
 	
 	private final EmployeeServiceArgs arguments;
-	public EmployeeService(EmployeeServiceArgs arguments) {
+	
+	protected EmployeeService(EmployeeServiceArgs arguments) {
 		this.arguments = Objects.requireNonNull(arguments, "El objeto de acceso a servicios no puede ser null");
 	}
 

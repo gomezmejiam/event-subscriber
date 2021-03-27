@@ -15,7 +15,7 @@ public class SubConsumerFactory {
     this.pubSubTemplate = pubSubTemplate;
   }
 
-  public <T> SubConsumerDlq getSubConsumerDlq(String queue, String dlq, String accepted) {
+  public SubConsumerDlq getSubConsumerDlq(String queue, String dlq, String accepted) {
     return new SubConsumerDlq(pubSubTemplate, queue, dlq,accepted) {};
   }
   

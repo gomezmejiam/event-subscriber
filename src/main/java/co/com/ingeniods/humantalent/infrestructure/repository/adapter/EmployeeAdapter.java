@@ -15,7 +15,7 @@ import co.com.ingeniods.humantalent.domain.service.ExistsEmployeeByPersonId;
 import co.com.ingeniods.humantalent.domain.service.FindAllEmployee;
 import co.com.ingeniods.humantalent.domain.service.FindEmployeeByPersonIds;
 import co.com.ingeniods.humantalent.domain.service.SaveEmployee;
-import co.com.ingeniods.humantalent.infrestructure.repository.assembler.EmployeeAssemblerImpl;
+import co.com.ingeniods.humantalent.infrestructure.repository.assembler.EmployeeAssembler;
 import co.com.ingeniods.humantalent.infrestructure.repository.dto.Tables;
 import co.com.ingeniods.humantalent.infrestructure.repository.dto.tables.pojos.EmployeePojo;
 import co.com.ingeniods.humantalent.infrestructure.repository.port.EmployeeRepository;
@@ -34,30 +34,30 @@ public class EmployeeAdapter extends EmployeeService {
 		log.debug("Creating EmployeeServiceArgs");
 		return EmployeeServiceArgs.builder().existsByPersonId(existsByPersonId(entityRepository))
 				.findAll(findAll(entityRepository)).save(saveClient(entityRepository))
-				.findByPersonIds(findByPersonIds(entityRepository, dslContext)).build();
+				.findByPersonIds(findByPersonIds(dslContext)).build();
 	}
 
 	private static ExistsEmployeeByPersonId existsByPersonId(EmployeeRepository entityRepository) {
-		return (personId) -> entityRepository.findByIdentification(personId.getType().getValue(), personId.getNumber());
+		return personId -> entityRepository.findByIdentification(personId.getType().getValue(), personId.getNumber());
 	}
 
 	private static FindAllEmployee findAll(EmployeeRepository entityRepository) {
-		return () -> EmployeeAssemblerImpl.INSTANCE.toEntity(entityRepository.findAll());
+		return () -> EmployeeAssembler.INSTANCE.toEntity(entityRepository.findAll());
 	}
 
 	private static SaveEmployee saveClient(EmployeeRepository entityRepository) {
-		return (entity) -> entityRepository.save(EmployeeAssemblerImpl.INSTANCE.toDto(entity));
+		return entity -> entityRepository.save(EmployeeAssembler.INSTANCE.toDto(entity));
 	}
 
-	private static FindEmployeeByPersonIds findByPersonIds(EmployeeRepository entityRepository, DSLContext dslContext) {
-		return (ids) -> {
+	private static FindEmployeeByPersonIds findByPersonIds(DSLContext dslContext) {
+		return ids -> {
 			List<Row2<String, String>> idsRows = ids.stream().map(id -> DSL.row(id.getType().name(), id.getNumber()))
 					.collect(Collectors.toList());
 			Condition inClause = DSL.row(Tables.EMPLOYEE.ID_TYPE, Tables.EMPLOYEE.ID_NUMBER).in(idsRows);
 			return dslContext.selectFrom(Tables.EMPLOYEE)
 					.where(inClause).fetchInto(EmployeePojo.class)
 					.stream()
-					.map(EmployeeAssemblerImpl.INSTANCE::toEntity).collect(Collectors.toList());
+					.map(EmployeeAssembler.INSTANCE::toEntity).collect(Collectors.toList());
 		};
 	}
 

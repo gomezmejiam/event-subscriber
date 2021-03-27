@@ -18,7 +18,24 @@ import lombok.AccessLevel;
 public abstract class EventProcessor<T> {
 
 	private final String eventType;
-	
+
+	private final String name;
+
+	@Getter(AccessLevel.PROTECTED)
+	protected final EntityValidator<T> validator;
+
+	private static final String NAME_POSTFIX = "_LISTENER";
+
+	protected EventProcessor(String eventType, EntityValidator<T> validator) {
+		this.eventType = eventType;
+		this.validator = validator;
+		this.name = generateName(eventType);
+	}
+
+	private String generateName(String eventType) {
+		return eventType.concat(NAME_POSTFIX);
+	}
+
 	public void accept(Event<String> messageEvent) {
 		if (!canProcessType(messageEvent.getType())) {
 			logEvent("{} ignore message {} {} ", messageEvent);
@@ -26,14 +43,14 @@ public abstract class EventProcessor<T> {
 		}
 		logEvent("{} processing message {} {} ", messageEvent);
 		T entity = readValue(String.valueOf(messageEvent.getData()));
-		Event<T> entityEvent = new Event<T>(messageEvent.getType(), entity);
+		Event<T> entityEvent = new Event<>(messageEvent.getType(), entity);
 		List<ValidationError> errorList = validator.validateError(entity);
 		if (!Optional.ofNullable(errorList).orElse(Collections.emptyList()).isEmpty()) {
 			throw new ValidationException(errorList);
 		}
 		process(entityEvent);
 	}
-	
+
 	public abstract void process(Event<T> messageEvent);
 
 	public abstract T readValue(String content);
@@ -50,23 +67,5 @@ public abstract class EventProcessor<T> {
 	public boolean canProcessType(String eventType) {
 		return this.getEventType().equalsIgnoreCase(eventType);
 	}
-
-	private final String name;
-
-	@Getter(AccessLevel.PROTECTED)
-	protected final EntityValidator<T> validator;
-
-	private static final String NAME_POSTFIX = "_LISTENER";
-
-	public EventProcessor(String eventType, EntityValidator<T> validator) {
-		this.eventType = eventType;
-		this.validator = validator;
-		this.name = generateName(eventType);
-	}
-
-	private String generateName(String eventType) {
-		return eventType.concat(NAME_POSTFIX);
-	}
-
 
 }

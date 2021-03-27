@@ -29,9 +29,7 @@ public abstract class Entity {
 		long highbits = Math.abs(myuuid.getMostSignificantBits());
 		long lowbits =  Math.abs(myuuid.getLeastSignificantBits());
 		byte[] bytes = ByteBuffer.allocate(16).putLong(highbits).putLong(lowbits).array();
-		BigInteger id = new BigInteger(bytes);
-		System.out.println("My UUID is: " + id.toString());
-		return id;
+		return new BigInteger(bytes);
 	}
 
 }

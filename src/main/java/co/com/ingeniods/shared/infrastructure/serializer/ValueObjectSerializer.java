@@ -11,7 +11,7 @@ public class ValueObjectSerializer<T> extends StdSerializer<T> {
 
 	private static final long serialVersionUID = 6257272957048795557L;
 
-	private final Function<T, String> valueExtractor;
+	private final transient Function<T, String> valueExtractor;
 
 	public ValueObjectSerializer(Class<T> vc, Function<T, String> valueExtractor) {
 		super(vc);
