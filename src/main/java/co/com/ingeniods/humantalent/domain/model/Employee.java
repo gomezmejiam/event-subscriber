@@ -5,8 +5,10 @@ import java.math.BigInteger;
 import co.com.ingeniods.shared.modules.domain.Entity;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class Employee extends Entity {
 	private Person person;
 

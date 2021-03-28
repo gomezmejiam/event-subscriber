@@ -1,6 +1,7 @@
 package co.com.ingeniods.humantalent.infrestructure.repository.adapter;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.jooq.Condition;
@@ -16,6 +17,7 @@ import co.com.ingeniods.humantalent.domain.service.FindAllEmployee;
 import co.com.ingeniods.humantalent.domain.service.FindEmployeeByPersonIds;
 import co.com.ingeniods.humantalent.domain.service.SaveEmployee;
 import co.com.ingeniods.humantalent.infrestructure.repository.assembler.EmployeeAssembler;
+import co.com.ingeniods.humantalent.infrestructure.repository.dto.EmployeeDTO;
 import co.com.ingeniods.humantalent.infrestructure.repository.dto.Tables;
 import co.com.ingeniods.humantalent.infrestructure.repository.dto.tables.pojos.EmployeePojo;
 import co.com.ingeniods.humantalent.infrestructure.repository.port.EmployeeRepository;
@@ -38,7 +40,14 @@ public class EmployeeAdapter extends EmployeeService {
 	}
 
 	private static ExistsEmployeeByPersonId existsByPersonId(EmployeeRepository entityRepository) {
-		return personId -> entityRepository.findByIdentification(personId.getType().getValue(), personId.getNumber());
+		return personId -> {
+			EmployeeDTO dto = entityRepository.findByIdentification(personId.getType().name(),
+					personId.getNumber());
+			if (Objects.isNull(dto) || Objects.isNull(dto.getId())) {
+				return false;
+			}
+			return true;
+		};
 	}
 
 	private static FindAllEmployee findAll(EmployeeRepository entityRepository) {
@@ -54,9 +63,7 @@ public class EmployeeAdapter extends EmployeeService {
 			List<Row2<String, String>> idsRows = ids.stream().map(id -> DSL.row(id.getType().name(), id.getNumber()))
 					.collect(Collectors.toList());
 			Condition inClause = DSL.row(Tables.EMPLOYEE.ID_TYPE, Tables.EMPLOYEE.ID_NUMBER).in(idsRows);
-			return dslContext.selectFrom(Tables.EMPLOYEE)
-					.where(inClause).fetchInto(EmployeePojo.class)
-					.stream()
+			return dslContext.selectFrom(Tables.EMPLOYEE).where(inClause).fetchInto(EmployeePojo.class).stream()
 					.map(EmployeeAssembler.INSTANCE::toEntity).collect(Collectors.toList());
 		};
 	}
