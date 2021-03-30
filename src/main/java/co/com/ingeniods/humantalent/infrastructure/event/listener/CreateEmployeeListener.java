@@ -1,4 +1,4 @@
-package co.com.ingeniods.humantalent.infrestructure.event.listener;
+package co.com.ingeniods.humantalent.infrastructure.event.listener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import co.com.ingeniods.humantalent.application.service.EmployeeService;
 import co.com.ingeniods.humantalent.application.service.EmployeeValidator;
 import co.com.ingeniods.humantalent.domain.model.Employee;
-import co.com.ingeniods.humantalent.infrestructure.event.dto.CreateEmployee;
+import co.com.ingeniods.humantalent.infrastructure.event.dto.CreateEmployee;
 import co.com.ingeniods.shared.event.EventProcessor;
 import co.com.ingeniods.shared.event.domain.Event;
 import co.com.ingeniods.shared.exception.events.UnreadableEventException;

@@ -25,9 +25,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.com.ingeniods.humantalent.domain.model.DocumentType;
 import co.com.ingeniods.humantalent.domain.model.Employee;
-import co.com.ingeniods.humantalent.infrestructure.repository.adapter.EmployeeAdapter;
-import co.com.ingeniods.humantalent.infrestructure.repository.dto.EmployeeDTO;
-import co.com.ingeniods.humantalent.infrestructure.repository.port.EmployeeRepository;
+import co.com.ingeniods.humantalent.infrastructure.api.EmployeeController;
+import co.com.ingeniods.humantalent.infrastructure.repository.adapter.EmployeeAdapter;
+import co.com.ingeniods.humantalent.infrastructure.repository.dto.EmployeeDTO;
+import co.com.ingeniods.humantalent.infrastructure.repository.port.EmployeeRepository;
 
 @AutoConfigureMockMvc(addFilters = true)
 @ContextConfiguration(classes = { EmployeeAdapter.class, EmployeeController.class })

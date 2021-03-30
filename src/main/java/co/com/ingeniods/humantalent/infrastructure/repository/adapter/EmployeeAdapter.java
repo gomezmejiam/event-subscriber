@@ -1,4 +1,4 @@
-package co.com.ingeniods.humantalent.infrestructure.repository.adapter;
+package co.com.ingeniods.humantalent.infrastructure.repository.adapter;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,11 +16,11 @@ import co.com.ingeniods.humantalent.domain.service.ExistsEmployeeByPersonId;
 import co.com.ingeniods.humantalent.domain.service.FindAllEmployee;
 import co.com.ingeniods.humantalent.domain.service.FindEmployeeByPersonIds;
 import co.com.ingeniods.humantalent.domain.service.SaveEmployee;
-import co.com.ingeniods.humantalent.infrestructure.repository.assembler.EmployeeAssembler;
-import co.com.ingeniods.humantalent.infrestructure.repository.dto.EmployeeDTO;
+import co.com.ingeniods.humantalent.infrastructure.repository.assembler.EmployeeAssembler;
+import co.com.ingeniods.humantalent.infrastructure.repository.dto.EmployeeDTO;
+import co.com.ingeniods.humantalent.infrastructure.repository.port.EmployeeRepository;
 import co.com.ingeniods.humantalent.infrestructure.repository.dto.Tables;
 import co.com.ingeniods.humantalent.infrestructure.repository.dto.tables.pojos.EmployeePojo;
-import co.com.ingeniods.humantalent.infrestructure.repository.port.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

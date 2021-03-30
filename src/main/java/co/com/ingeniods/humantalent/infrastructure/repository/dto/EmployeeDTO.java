@@ -1,10 +1,10 @@
-package co.com.ingeniods.humantalent.infrestructure.repository.dto;
+package co.com.ingeniods.humantalent.infrastructure.repository.dto;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 
 import co.com.ingeniods.humantalent.domain.model.DocumentType;
-import co.com.ingeniods.humantalent.infrestructure.repository.assembler.DocumentTypeConverter;
+import co.com.ingeniods.humantalent.infrastructure.repository.assembler.DocumentTypeConverter;
 import co.com.ingeniods.shared.infrastructure.repository.dto.BaseDto;
 import lombok.Getter;
 import lombok.Setter;

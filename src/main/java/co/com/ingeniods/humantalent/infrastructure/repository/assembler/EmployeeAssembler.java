@@ -1,11 +1,11 @@
-package co.com.ingeniods.humantalent.infrestructure.repository.assembler;
+package co.com.ingeniods.humantalent.infrastructure.repository.assembler;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import co.com.ingeniods.humantalent.domain.model.Employee;
-import co.com.ingeniods.humantalent.infrestructure.repository.dto.EmployeeDTO;
+import co.com.ingeniods.humantalent.infrastructure.repository.dto.EmployeeDTO;
 import co.com.ingeniods.humantalent.infrestructure.repository.dto.tables.pojos.EmployeePojo;
 import co.com.ingeniods.shared.infrastructure.repository.assembler.DtoAssembler;
 

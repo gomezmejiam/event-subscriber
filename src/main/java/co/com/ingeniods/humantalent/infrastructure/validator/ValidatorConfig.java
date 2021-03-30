@@ -1,4 +1,4 @@
-package co.com.ingeniods.humantalent.infrestructure.validator;
+package co.com.ingeniods.humantalent.infrastructure.validator;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

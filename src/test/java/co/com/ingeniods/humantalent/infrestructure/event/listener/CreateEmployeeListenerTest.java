@@ -1,38 +1,29 @@
 package co.com.ingeniods.humantalent.infrestructure.event.listener;
 
-import static org.hamcrest.CoreMatchers.any;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockitoSession;
-import static org.mockito.Mockito.spy;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.anything;
 
 import java.math.BigInteger;
-import java.util.Collections;
 
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 
 import co.com.ingeniods.config.jackson.JacksonConfiguration;
 import co.com.ingeniods.humantalent.application.service.EmployeeValidator;
-import co.com.ingeniods.humantalent.domain.model.DocumentType;
 import co.com.ingeniods.humantalent.domain.model.Employee;
-import co.com.ingeniods.humantalent.infrestructure.repository.adapter.EmployeeAdapter;
-import co.com.ingeniods.humantalent.infrestructure.repository.dto.EmployeeDTO;
-import co.com.ingeniods.humantalent.infrestructure.repository.port.EmployeeRepository;
+import co.com.ingeniods.humantalent.infrastructure.event.listener.CreateEmployeeListener;
+import co.com.ingeniods.humantalent.infrastructure.repository.adapter.EmployeeAdapter;
+import co.com.ingeniods.humantalent.infrastructure.repository.dto.EmployeeDTO;
+import co.com.ingeniods.humantalent.infrastructure.repository.port.EmployeeRepository;
 import co.com.ingeniods.shared.event.domain.Event;
 import co.com.ingeniods.shared.exception.domain.ValidationException;
 

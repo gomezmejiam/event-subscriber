@@ -1,4 +1,4 @@
-package co.com.ingeniods.humantalent.infrestructure.repository.assembler;
+package co.com.ingeniods.humantalent.infrastructure.repository.assembler;
 
 import java.util.stream.Stream;
 

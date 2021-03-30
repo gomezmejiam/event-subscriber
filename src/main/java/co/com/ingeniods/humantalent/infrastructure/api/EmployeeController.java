@@ -1,4 +1,4 @@
-package co.com.ingeniods.humantalent.infrestructure.api;
+package co.com.ingeniods.humantalent.infrastructure.api;
 
 import java.util.List;
 import java.util.Objects;

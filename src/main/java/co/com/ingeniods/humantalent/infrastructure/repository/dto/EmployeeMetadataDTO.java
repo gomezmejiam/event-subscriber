@@ -1,4 +1,4 @@
-package co.com.ingeniods.humantalent.infrestructure.repository.dto;
+package co.com.ingeniods.humantalent.infrastructure.repository.dto;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
