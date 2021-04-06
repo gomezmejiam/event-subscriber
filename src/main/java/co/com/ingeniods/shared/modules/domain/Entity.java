@@ -18,10 +18,14 @@ public abstract class Entity {
 	}
 	
 	protected Entity(BigInteger id) {
+		this.id = Objects.isNull(id)?generateId():id;
+		validate();
+	}
+	
+	private void validate() {
 		if(Objects.isNull(id) || id.doubleValue() < 1) {
 			throw new EntityPropertyValueException(this.getClass(), "id", id);
 		}
-		this.id = id;
 	}
 	
 	private BigInteger generateId() {

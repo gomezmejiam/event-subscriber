@@ -1,0 +1,52 @@
+spring:
+  cloud:
+    gcp:
+      datastore:
+        enabled: false
+      pubsub:
+        enabled: false
+      sql:
+        enabled: false
+  datasource:
+    driver-class-name: org.h2.Driver
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 15000
+      max-lifetime: 1200000
+      maximum-pool-size: 12
+      minimum-idle: 5
+    password: ''
+    url: jdbc:h2:mem:testdb
+    username: sa
+  jpa:
+    h2:
+      console:
+        enabled: true
+        path: /h2
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        jdbc:
+          batch_size: 25
+          batch_versioned_data: true
+          generate_statistics: false
+          order_inserts: true
+          order_updates: true
+        show_sql: false
+    show-sql: true
+hibernate:
+  cache:
+    region:
+      factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+    use_query_cache: true
+    use_second_level_cache: true
+  dialect: org.hibernate.dialect.H2Dialect
+  hbm2ddl:
+    auto: create-drop
+  show_sql: true
+logging:
+  level:
+    root: DEBUG

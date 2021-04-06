@@ -59,9 +59,9 @@ public abstract class EventProcessor<T> {
 		log.info(pattern, this.getName(), messageEvent.getType(), messageEvent.getId());
 	}
 
-	public void validate(Event<String> messageEvent) {
+	public boolean validate(Event<String> messageEvent) {
 		T entity = readValue(String.valueOf(messageEvent.getData()));
-		this.getValidator().validate(entity);
+		return this.getValidator().validate(entity);
 	}
 
 	public boolean canProcessType(String eventType) {

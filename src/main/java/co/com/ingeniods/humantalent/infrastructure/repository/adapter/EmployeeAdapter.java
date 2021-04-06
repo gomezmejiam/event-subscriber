@@ -1,7 +1,6 @@
 package co.com.ingeniods.humantalent.infrastructure.repository.adapter;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.jooq.Condition;
@@ -17,7 +16,6 @@ import co.com.ingeniods.humantalent.domain.service.FindAllEmployee;
 import co.com.ingeniods.humantalent.domain.service.FindEmployeeByPersonIds;
 import co.com.ingeniods.humantalent.domain.service.SaveEmployee;
 import co.com.ingeniods.humantalent.infrastructure.repository.assembler.EmployeeAssembler;
-import co.com.ingeniods.humantalent.infrastructure.repository.dto.EmployeeDTO;
 import co.com.ingeniods.humantalent.infrastructure.repository.port.EmployeeRepository;
 import co.com.ingeniods.humantalent.infrestructure.repository.dto.Tables;
 import co.com.ingeniods.humantalent.infrestructure.repository.dto.tables.pojos.EmployeePojo;
@@ -29,7 +27,6 @@ public class EmployeeAdapter extends EmployeeService {
 
 	public EmployeeAdapter(EmployeeRepository entityRepository, DSLContext dslContext) {
 		super(EmployeeAdapter.getArguments(entityRepository, dslContext));
-
 	}
 
 	private static EmployeeServiceArgs getArguments(EmployeeRepository entityRepository, DSLContext dslContext) {
@@ -41,12 +38,7 @@ public class EmployeeAdapter extends EmployeeService {
 
 	private static ExistsEmployeeByPersonId existsByPersonId(EmployeeRepository entityRepository) {
 		return personId -> {
-			EmployeeDTO dto = entityRepository.findByIdentification(personId.getType().name(),
-					personId.getNumber());
-			if (Objects.isNull(dto) || Objects.isNull(dto.getId())) {
-				return false;
-			}
-			return true;
+			return entityRepository.countByIdentification(personId.getType(), personId.getNumber()) > 0;
 		};
 	}
 

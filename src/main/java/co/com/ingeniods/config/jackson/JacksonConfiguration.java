@@ -17,6 +17,7 @@ public class JacksonConfiguration {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
 		mapper.registerModule(new Jdk8Module()).registerModule(new JavaTimeModule())
 				.registerModule(new CustomJacksonModule());
+		mapper.addMixIn(getClass(), getClass());
 		return mapper;
 	}
 

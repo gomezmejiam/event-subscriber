@@ -3,6 +3,7 @@ package co.com.ingeniods.shared.infrastructure.repository.dto;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -32,6 +33,9 @@ public class BaseDto implements Serializable {
 
 	@PrePersist
 	public void onPrePersist() {
+		if(!Objects.isNull(editionUserDate)) {
+			return;
+		}
 		editionUserDate = new EditionUserDate();
 		editionUserDate.setCreatedBy("USER");
 		editionUserDate.setModifiedBy("USER");
@@ -41,6 +45,9 @@ public class BaseDto implements Serializable {
 
 	@PreUpdate
 	public void onPreUpdate() {
+		if(Objects.isNull(editionUserDate)) {
+			editionUserDate = new EditionUserDate();
+		}
 		editionUserDate.setModifiedBy("USER");
 		editionUserDate.setModifiedDate(LocalDate.now());
 	}

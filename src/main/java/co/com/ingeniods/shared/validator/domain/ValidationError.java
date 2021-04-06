@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class ValidationError implements Serializable{
 
 	private static final long serialVersionUID = 271715808502790147L;

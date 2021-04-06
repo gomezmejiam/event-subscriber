@@ -21,6 +21,7 @@
 		<spring-boot-release.version>2.3.4.RELEASE</spring-boot-release.version>
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 		<sonar.language>java</sonar.language>
+		<sonar.coverage.exclusions>**/repository/dto/tables/*,**/repository/dto/pojos/*,**/config/*</sonar.coverage.exclusions>
 	</properties>
 	<dependencies>
 
@@ -104,6 +105,12 @@
 			<groupId>com.tngtech.archunit</groupId>
 			<artifactId>archunit-junit5</artifactId>
 			<version>0.17.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
 
@@ -217,6 +224,18 @@
 			</activation>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.pitest</groupId>
+						<artifactId>pitest-maven</artifactId>
+						<version>1.6.4</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.pitest</groupId>
+								<artifactId>pitest-junit5-plugin</artifactId>
+								<version>0.14</version>
+							</dependency>
+						</dependencies>
+					</plugin>
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>

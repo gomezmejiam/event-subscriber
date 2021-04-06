@@ -19,7 +19,8 @@ public class EmployeeValidator implements EntityValidator<Employee> {
 	@Override
 	public List<ValidationError> validateError(Employee entity) {
 		List<ValidationError> errors = new ArrayList<>();
-		if (employeeService.existsByPersonId(entity.getPerson().getId())) {
+		boolean exist=employeeService.existsByPersonId(entity.getPerson().getId()); 
+		if (exist) {
 			String message = String.format("Employee with id %s ", entity.getPerson().getId());
 			errors.add(getError(ValidationErrorCode.ENTITY_ALREADY_REGISTRED, message));
 		}

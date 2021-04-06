@@ -8,11 +8,9 @@ import co.com.ingeniods.humantalent.domain.service.SaveEmployee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Value;
 
 @Getter
 @Builder
-@Value
 @AllArgsConstructor
 public class EmployeeServiceArgs {
 	private final ExistsEmployeeByPersonId existsByPersonId;
